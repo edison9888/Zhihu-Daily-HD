@@ -1,0 +1,13 @@
+platform :ios,'5.0'
+
+pod 'RestKit', :head
+
+pod 'JSONKit', :head
+
+pod 'BlocksKit', :head
+
+pod 'SDWebImage', :head
+
+pod 'BDDynamicGridViewController', :head
+
+pod 'GCOLaunchImageTransition', :head

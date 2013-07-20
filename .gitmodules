@@ -1,0 +1,3 @@
+[submodule "ZhihuDailyHD/ZhihuDailyHD/External/URLManager"]
+	path = ZhihuDailyHD/ZhihuDailyHD/External/URLManager
+	url = https://github.com/gaosboy/urlmanager.git
