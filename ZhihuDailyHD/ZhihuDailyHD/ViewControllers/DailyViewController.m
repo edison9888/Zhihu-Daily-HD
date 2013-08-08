@@ -8,6 +8,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import <Reachability/Reachability.h>
 
 #import "DailyViewController.h"
 #import "DailyNewsDataCenter.h"
@@ -16,6 +17,8 @@
 @interface DailyViewController () <BDDynamicGridViewDelegate>
 
 @property (nonatomic, strong) NSArray *newsItemViews;
+
+@property (nonatomic, strong) Reachability *reachability;
 
 @end
 
@@ -37,6 +40,8 @@
     self.title = @"知乎日报";
     
     self.hidesBottomBarWhenPushed = YES;
+    
+    self.reachability = [Reachability reachabilityWithHostname:@"zhihu.com"];
 
     __block BOOL isLoading = NO;
     __weak DailyViewController *blockSelf = self;
@@ -126,8 +131,13 @@
                          titleLabel.alpha = 0.0f;
                      }
                      completion:^(BOOL finished) {
-                         NSString *url = [news thumbnail];
-                         url = [(MONewsItem *)[[news items] lastObject] image];
+                         NSString *url;
+                         if ([self.reachability isReachableViaWiFi]) {
+                             url = [(MONewsItem *)[[news items] lastObject] image];
+                         }
+                         if ( ! [url length]) {
+                             url = [news thumbnail];
+                         }
                          [imageView setImageWithURL:[NSURL URLWithString:url]];
                          titleLabel.text = [news title];
                          [UIView animateWithDuration:0.5
