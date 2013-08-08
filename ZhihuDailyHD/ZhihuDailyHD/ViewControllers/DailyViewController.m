@@ -37,11 +37,19 @@
     self.title = @"知乎日报";
     
     self.hidesBottomBarWhenPushed = YES;
-    
+
+    __block BOOL isLoading = NO;
     __weak DailyViewController *blockSelf = self;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                           handler:^(id sender) {
+                                                                                              if (isLoading) {
+                                                                                                  return;
+                                                                                              }
+                                                                                              isLoading = YES;
+                                                                                              [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
                                                                                               [[DailyNewsDataCenter sharedInstance] reloadData:^(BOOL success) {
+                                                                                                  isLoading = NO;
+                                                                                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                                                                                   if (success) {
                                                                                                       [blockSelf asyncDataLoading];
                                                                                                   }
@@ -67,6 +75,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self reloadData];
 }
 
 - (void)asyncDataLoading {
@@ -113,7 +126,9 @@
                          titleLabel.alpha = 0.0f;
                      }
                      completion:^(BOOL finished) {
-                         [imageView setImageWithURL:[NSURL URLWithString:[news thumbnail]]];
+                         NSString *url = [news thumbnail];
+                         url = [(MONewsItem *)[[news items] lastObject] image];
+                         [imageView setImageWithURL:[NSURL URLWithString:url]];
                          titleLabel.text = [news title];
                          [UIView animateWithDuration:0.5
                                           animations:^{

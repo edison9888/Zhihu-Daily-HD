@@ -37,6 +37,7 @@
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     backgroundImageView.image = [self launchImageForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:backgroundImageView];
     
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height / 2 + 150, self.view.bounds.size.width, 100)];
@@ -44,6 +45,7 @@
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     self.hintLabel.textColor = [UIColor whiteColor];
     self.hintLabel.font = [UIFont systemFontOfSize:30];
+    self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.hintLabel];
     
     self.hintLabel.text = @"正在为您获取今日知乎...";

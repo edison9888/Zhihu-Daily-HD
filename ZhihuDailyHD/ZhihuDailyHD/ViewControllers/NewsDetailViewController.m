@@ -8,6 +8,7 @@
 
 #import "NewsDetailViewController.h"
 #import <BlocksKit/UIWebView+BlocksKit.h>
+#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 
 @interface NewsDetailViewController ()
 
@@ -41,7 +42,14 @@
     self.hidesBottomBarWhenPushed = NO;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.webView];
+    
+    __weak NewsDetailViewController *blockSelf = self;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                          handler:^(id sender) {
+                                                                                              [blockSelf.webView reload];
+                                                                                          }];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }

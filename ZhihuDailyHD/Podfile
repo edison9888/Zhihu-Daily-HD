@@ -11,3 +11,5 @@ pod 'SDWebImage', :head
 pod 'BDDynamicGridViewController', :head
 
 pod 'GCOLaunchImageTransition', :head
+
+pod 'Reachability', :head
