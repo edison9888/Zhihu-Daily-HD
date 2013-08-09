@@ -6,12 +6,15 @@
 //  Copyright (c) 2013 SenseForce. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "SloganViewController.h"
 #import "DailyViewController.h"
 #import "DailyNewsDataCenter.h"
 
 @interface SloganViewController ()
 
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UILabel *hintLabel;
 
 - (UIImage*)launchImageForOrientation:(UIInterfaceOrientation)orientation;
@@ -35,27 +38,28 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundImageView.image = [self launchImageForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
-    [self.view addSubview:backgroundImageView];
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.backgroundImageView.image = [self launchImageForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    self.backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
+    [self.view addSubview:self.backgroundImageView];
     
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height / 2 + 150, self.view.bounds.size.width, 100)];
     self.hintLabel.backgroundColor = [UIColor clearColor];
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     self.hintLabel.textColor = [UIColor whiteColor];
     self.hintLabel.font = [UIFont systemFontOfSize:30];
-    self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.hintLabel];
     
-    self.hintLabel.text = @"正在为您获取今日知乎...";
+    self.hintLabel.text = @"正在跑腿为您获取今日知乎...";
 	
     __weak SloganViewController *blockSelf = self;
     [self.view whenTapped:^{
         if ( ! [[DailyNewsDataCenter sharedInstance] latestNews]) {
-            blockSelf.hintLabel.text = @"还在为您获取今日知乎，请稍等...";
+            blockSelf.hintLabel.text = @"还在狂奔给您拿今日知乎，客官不要慌...";
             return;
         }
+        [blockSelf.hintLabel.layer removeAllAnimations];
         DailyViewController *dailyViewController = [[DailyViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dailyViewController];
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -64,7 +68,16 @@
     }];
     
     [[DailyNewsDataCenter sharedInstance] reloadData:^(BOOL success) {
-        blockSelf.hintLabel.text = @"今日知乎已获取到,轻触屏幕查看";
+        blockSelf.hintLabel.text = @"今日知乎已送到,轻触屏幕查看";
+        [UIView animateWithDuration:2.0f
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
+                         animations:^{
+                             self.hintLabel.alpha = 0.3f;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
     }];
 }
 
@@ -72,6 +85,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    self.backgroundImageView.image = [self launchImageForOrientation:toInterfaceOrientation];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Private Method
