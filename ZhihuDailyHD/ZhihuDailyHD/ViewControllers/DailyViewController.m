@@ -14,7 +14,9 @@
 #import "DailyNewsDataCenter.h"
 #import "NewsDetailViewController.h"
 
-@interface DailyViewController () <BDDynamicGridViewDelegate>
+@interface DailyViewController () <BDDynamicGridViewDelegate> {
+    UIInterfaceOrientation orientationBeforeDisappearing;
+}
 
 @property (nonatomic, strong) NSArray *newsItemViews;
 
@@ -40,6 +42,7 @@
     self.title = @"知乎日报";
     
     self.hidesBottomBarWhenPushed = YES;
+    orientationBeforeDisappearing = self.interfaceOrientation;
     
     self.reachability = [Reachability reachabilityWithHostname:@"zhihu.com"];
 
@@ -78,7 +81,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reloadData];
+    UIInterfaceOrientation currentOrientation = self.interfaceOrientation;
+    if (orientationBeforeDisappearing != currentOrientation) {
+        orientationBeforeDisappearing = currentOrientation;
+        [self reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
