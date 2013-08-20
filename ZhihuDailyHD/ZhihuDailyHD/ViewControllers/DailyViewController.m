@@ -81,11 +81,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
     UIInterfaceOrientation currentOrientation = self.interfaceOrientation;
     if (orientationBeforeDisappearing != currentOrientation) {
         orientationBeforeDisappearing = currentOrientation;
         [self reloadData];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:NSStringFromClass([self class])];
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning

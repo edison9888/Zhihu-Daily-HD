@@ -7,10 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
+#import "MobClick.h"
 
 #import "SloganViewController.h"
 
 #import <GCOLaunchImageTransition/GCOLaunchImageTransition.h>
+
+@interface AppDelegate ()
+
+- (void)configUmeng;
+
+@end
 
 @implementation AppDelegate
 
@@ -19,6 +27,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    [self configUmeng];
     
     self.window.rootViewController = [[SloganViewController alloc] init];
     
@@ -48,6 +58,13 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Private Metholds
+
+- (void)configUmeng {
+    [MobClick startWithAppkey:UmengAppKey];
+    [MobClick setAppVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
 }
 
 @end

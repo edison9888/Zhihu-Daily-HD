@@ -7,6 +7,7 @@
 //
 
 #import "BDDynamicGridViewController.h"
+#import "MobClick.h"
 
 @interface DailyViewController : BDDynamicGridViewController
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MobClick.h"
 
 @interface NewsDetailViewController : UIViewController
 
