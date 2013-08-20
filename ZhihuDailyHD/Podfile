@@ -13,3 +13,7 @@ pod 'BDDynamicGridViewController', :head
 pod 'GCOLaunchImageTransition', :head
 
 pod 'Reachability', :head
+
+pod 'MBProgressHUD', :head
+
+pod 'Appirater', :head

@@ -6,17 +6,19 @@
 //  Copyright (c) 2013 SenseForce. All rights reserved.
 //
 
+#import <Appirater/Appirater.h>
+#import <GCOLaunchImageTransition/GCOLaunchImageTransition.h>
+
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "MobClick.h"
 
 #import "SloganViewController.h"
 
-#import <GCOLaunchImageTransition/GCOLaunchImageTransition.h>
-
 @interface AppDelegate ()
 
 - (void)configUmeng;
+- (void)configAppRating;
 
 @end
 
@@ -29,6 +31,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self configUmeng];
+    
+    [self configAppRating];
     
     self.window.rootViewController = [[SloganViewController alloc] init];
     
@@ -65,6 +69,17 @@
 - (void)configUmeng {
     [MobClick startWithAppkey:UmengAppKey];
     [MobClick setAppVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+}
+
+- (void)configAppRating {
+    [Appirater setAppId:AppId];
+    [Appirater setDaysUntilPrompt:7];       //使用N天后跳出提示
+    [Appirater setUsesUntilPrompt:21];      //使用N次后跳出提示
+    [Appirater setTimeBeforeReminding:2];   //点击稍候提醒，设置N天后再提示
+    [Appirater setOpenInAppStore:YES];
+    [Appirater setDebug:NO];
+    
+    [Appirater appLaunched:YES];
 }
 
 @end

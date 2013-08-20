@@ -33,6 +33,7 @@
 		907DADA1179AAEC500CB7618 /* DailyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DADA0179AAEC500CB7618 /* DailyViewController.m */; };
 		90A728B417C3B33F00B19BA0 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A728AE17C3B33F00B19BA0 /* libMobClickLibrary.a */; };
 		90A728B817C3B38C00B19BA0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A728B717C3B38C00B19BA0 /* libz.dylib */; };
+		90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */; };
 		C9FFB09EA0834D238DADF154 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53627110FA544CFE969FAEA1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,8 @@
 		90A728AE17C3B33F00B19BA0 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		90A728AF17C3B33F00B19BA0 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		90A728B717C3B38C00B19BA0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		90A728BC17C3BB7C00B19BA0 /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
+		90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +202,8 @@
 				907DADA0179AAEC500CB7618 /* DailyViewController.m */,
 				90058999179AE1C300983B6D /* NewsDetailViewController.h */,
 				9005899A179AE1C400983B6D /* NewsDetailViewController.m */,
+				90A728BC17C3BB7C00B19BA0 /* OptionsViewController.h */,
+				90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				90058995179ABE3500983B6D /* DataCenter.m in Sources */,
 				90058998179ABE4A00983B6D /* DailyNewsDataCenter.m in Sources */,
 				9005899B179AE1C400983B6D /* NewsDetailViewController.m in Sources */,
+				90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

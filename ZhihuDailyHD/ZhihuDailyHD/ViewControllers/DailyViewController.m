@@ -9,18 +9,25 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import <Reachability/Reachability.h>
+#import <Appirater/Appirater.h>
 
 #import "DailyViewController.h"
 #import "DailyNewsDataCenter.h"
 #import "NewsDetailViewController.h"
+#import "OptionsViewController.h"
 
-@interface DailyViewController () <BDDynamicGridViewDelegate> {
+@interface DailyViewController () <UIPopoverControllerDelegate, BDDynamicGridViewDelegate, OptionsDelegate> {
     UIInterfaceOrientation orientationBeforeDisappearing;
 }
 
 @property (nonatomic, strong) NSArray *newsItemViews;
 
 @property (nonatomic, strong) Reachability *reachability;
+
+@property (nonatomic, strong) OptionsViewController *optionsViewController;
+@property (nonatomic, strong) UIPopoverController *popover;
+
+- (IBAction)showMoreOptions:(id)sender;
 
 @end
 
@@ -63,6 +70,10 @@
                                                                                                   }
                                                                                               }];
                                                                                           }];
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [leftButton addTarget:self action:@selector(showMoreOptions:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
 	
     [self setBackgroundColor:[UIColor lightGrayColor]];
     self.delegate = self;
@@ -170,6 +181,54 @@
                                               }
                                           }];
                      }];
+}
+
+- (IBAction)showMoreOptions:(id)sender {
+    if ( ! self.optionsViewController) {
+        self.optionsViewController = [[OptionsViewController alloc] initWithStyle:UITableViewStylePlain];
+        self.optionsViewController.delegate = self;
+    }
+    
+    if ( ! self.popover) {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:self.optionsViewController];
+        popoverController.delegate = self;
+        self.popover = popoverController;
+    }
+    
+    if ([self.popover isPopoverVisible]) {
+        [self.popover dismissPopoverAnimated:YES];
+    }
+    else {
+        self.popover.popoverContentSize = CGSizeMake(240, 320);
+        [self.popover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+    }
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
+    return YES;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    
+}
+
+#pragma mark - OptionsDelegate
+
+- (void)optionsSelectAtIndex:(NSInteger)index {
+    [self.popover dismissPopoverAnimated:YES];
+    switch (index) {
+        case 1: {
+            [Appirater rateApp];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - BDDynamicGridViewController

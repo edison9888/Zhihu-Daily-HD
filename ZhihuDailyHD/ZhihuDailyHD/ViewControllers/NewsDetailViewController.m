@@ -9,8 +9,9 @@
 #import "NewsDetailViewController.h"
 #import <BlocksKit/UIWebView+BlocksKit.h>
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
-@interface NewsDetailViewController ()
+@interface NewsDetailViewController () <UIWebViewDelegate>
 
 @property (nonatomic, copy) NSString *url;
 
@@ -46,6 +47,8 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.webView];
     
+    self.webView.delegate = self;
+    
     __weak NewsDetailViewController *blockSelf = self;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                           handler:^(id sender) {
@@ -71,6 +74,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES].removeFromSuperViewOnHide = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [[MBProgressHUD HUDForView:self.view] hide:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [[MBProgressHUD HUDForView:self.view] hide:YES];
 }
 
 @end
