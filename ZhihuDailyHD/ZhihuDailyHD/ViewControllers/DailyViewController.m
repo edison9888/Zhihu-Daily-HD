@@ -10,11 +10,14 @@
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import <Reachability/Reachability.h>
 #import <Appirater/Appirater.h>
+#import "UMFeedback.h"
 
+#import "Constants.h"
 #import "DailyViewController.h"
 #import "DailyNewsDataCenter.h"
 #import "NewsDetailViewController.h"
 #import "OptionsViewController.h"
+#import "AboutViewController.h"
 
 @interface DailyViewController () <UIPopoverControllerDelegate, BDDynamicGridViewDelegate, OptionsDelegate> {
     UIInterfaceOrientation orientationBeforeDisappearing;
@@ -221,8 +224,19 @@
 - (void)optionsSelectAtIndex:(NSInteger)index {
     [self.popover dismissPopoverAnimated:YES];
     switch (index) {
+        case 0: {
+            [UMFeedback showFeedback:self withAppkey:UmengAppKey];
+        }
+            break;
+            
         case 1: {
             [Appirater rateApp];
+        }
+            break;
+            
+        case 2: {
+            AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+            [self.navigationController pushViewController:aboutViewController animated:YES];
         }
             break;
             

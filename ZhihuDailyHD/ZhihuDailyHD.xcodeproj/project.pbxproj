@@ -24,7 +24,11 @@
 		9020E1CC177F05FD0080D77C /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9020E1C3177F05FD0080D77C /* Icon-72@2x.png */; };
 		9020E1CD177F05FD0080D77C /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9020E1C4177F05FD0080D77C /* Icon-Small-50.png */; };
 		9020E1CE177F05FD0080D77C /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9020E1C5177F05FD0080D77C /* Icon-Small-50@2x.png */; };
+		90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90286ECD17C4FD1D00D45318 /* AboutViewController.m */; };
+		90286ED117C50A8D00D45318 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 90286ED017C50A8D00D45318 /* about.html */; };
 		9068EB92179A9AF800BA143D /* SloganViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9068EB91179A9AF800BA143D /* SloganViewController.m */; };
+		9079B54917C4EB2700E1B96A /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079B54617C4EB2700E1B96A /* libUMFeedback.a */; };
+		9079B54A17C4EB2700E1B96A /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9079B54717C4EB2700E1B96A /* umFeedback.bundle */; };
 		907DAD91179AA66900CB7618 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907DAD90179AA66900CB7618 /* QuartzCore.framework */; };
 		907DAD95179AA98C00CB7618 /* MOLatestNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD94179AA98C00CB7618 /* MOLatestNews.m */; };
 		907DAD98179AA9D300CB7618 /* MONews.m in Sources */ = {isa = PBXBuildFile; fileRef = 907DAD97179AA9D300CB7618 /* MONews.m */; };
@@ -65,8 +69,14 @@
 		9020E1C3177F05FD0080D77C /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		9020E1C4177F05FD0080D77C /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		9020E1C5177F05FD0080D77C /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		90286ECC17C4FD1D00D45318 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		90286ECD17C4FD1D00D45318 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		90286ED017C50A8D00D45318 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		9068EB90179A9AF800BA143D /* SloganViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SloganViewController.h; sourceTree = "<group>"; };
 		9068EB91179A9AF800BA143D /* SloganViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SloganViewController.m; sourceTree = "<group>"; };
+		9079B54617C4EB2700E1B96A /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
+		9079B54717C4EB2700E1B96A /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
+		9079B54817C4EB2700E1B96A /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 		907DAD90179AA66900CB7618 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		907DAD93179AA98C00CB7618 /* MOLatestNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLatestNews.h; sourceTree = "<group>"; };
 		907DAD94179AA98C00CB7618 /* MOLatestNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLatestNews.m; sourceTree = "<group>"; };
@@ -98,6 +108,7 @@
 				9020E168177EFB0D0080D77C /* CoreGraphics.framework in Frameworks */,
 				C9FFB09EA0834D238DADF154 /* libPods.a in Frameworks */,
 				90A728B417C3B33F00B19BA0 /* libMobClickLibrary.a in Frameworks */,
+				9079B54917C4EB2700E1B96A /* libUMFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +176,7 @@
 		9020E1BC177F05FD0080D77C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				90286ECF17C50A8D00D45318 /* Html */,
 				9020E1BD177F05FD0080D77C /* Images */,
 			);
 			path = Resources;
@@ -189,8 +201,17 @@
 			isa = PBXGroup;
 			children = (
 				90A728AD17C3B33F00B19BA0 /* UMAnalytics */,
+				9079B54517C4EB2700E1B96A /* UMFeedback */,
 			);
 			path = External;
+			sourceTree = "<group>";
+		};
+		90286ECF17C50A8D00D45318 /* Html */ = {
+			isa = PBXGroup;
+			children = (
+				90286ED017C50A8D00D45318 /* about.html */,
+			);
+			path = Html;
 			sourceTree = "<group>";
 		};
 		9068EB8F179A9ABE00BA143D /* ViewControllers */ = {
@@ -204,8 +225,20 @@
 				9005899A179AE1C400983B6D /* NewsDetailViewController.m */,
 				90A728BC17C3BB7C00B19BA0 /* OptionsViewController.h */,
 				90A728BD17C3BB7D00B19BA0 /* OptionsViewController.m */,
+				90286ECC17C4FD1D00D45318 /* AboutViewController.h */,
+				90286ECD17C4FD1D00D45318 /* AboutViewController.m */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9079B54517C4EB2700E1B96A /* UMFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				9079B54617C4EB2700E1B96A /* libUMFeedback.a */,
+				9079B54717C4EB2700E1B96A /* umFeedback.bundle */,
+				9079B54817C4EB2700E1B96A /* UMFeedback.h */,
+			);
+			path = UMFeedback;
 			sourceTree = "<group>";
 		};
 		907DAD0A179AA30F00CB7618 /* DataCenters */ = {
@@ -322,6 +355,8 @@
 				9020E1CC177F05FD0080D77C /* Icon-72@2x.png in Resources */,
 				9020E1CD177F05FD0080D77C /* Icon-Small-50.png in Resources */,
 				9020E1CE177F05FD0080D77C /* Icon-Small-50@2x.png in Resources */,
+				9079B54A17C4EB2700E1B96A /* umFeedback.bundle in Resources */,
+				90286ED117C50A8D00D45318 /* about.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +410,7 @@
 				90058998179ABE4A00983B6D /* DailyNewsDataCenter.m in Sources */,
 				9005899B179AE1C400983B6D /* NewsDetailViewController.m in Sources */,
 				90A728BE17C3BB7D00B19BA0 /* OptionsViewController.m in Sources */,
+				90286ECE17C4FD1D00D45318 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
