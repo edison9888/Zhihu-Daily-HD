@@ -17,7 +17,11 @@
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UILabel *hintLabel;
 
+@property (nonatomic, assign) BOOL isFetching;
+
 - (UIImage*)launchImageForOrientation:(UIInterfaceOrientation)orientation;
+
+- (void)fetchNews;
 
 @end
 
@@ -50,13 +54,15 @@
     self.hintLabel.font = [UIFont systemFontOfSize:30];
     self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:self.hintLabel];
-    
-    self.hintLabel.text = @"正在跑腿为您获取今日知乎...";
-	
+    	
     __weak SloganViewController *blockSelf = self;
     [self.view whenTapped:^{
-        if ( ! [[DailyNewsDataCenter sharedInstance] latestNews]) {
+        if (self.isFetching) {
             blockSelf.hintLabel.text = @"还在狂奔给您拿今日知乎，客官不要慌...";
+            return;
+        }
+        else if ( ! [[DailyNewsDataCenter sharedInstance] latestNews]) {
+            [blockSelf fetchNews];
             return;
         }
         [blockSelf.hintLabel.layer removeAllAnimations];
@@ -67,17 +73,30 @@
         [blockSelf presentModalViewController:navigationController animated:YES];
     }];
     
+    [self fetchNews];
+}
+
+- (void)fetchNews {
+    self.isFetching = YES;
+    self.hintLabel.text = @"正在跑腿为您获取今日知乎...";
+    __weak SloganViewController *blockSelf = self;
     [[DailyNewsDataCenter sharedInstance] reloadData:^(BOOL success) {
-        blockSelf.hintLabel.text = @"今日知乎已送到,轻触屏幕查看";
-        [UIView animateWithDuration:2.0f
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
-                         animations:^{
-                             self.hintLabel.alpha = 0.3f;
-                         }
-                         completion:^(BOOL finished) {
-                             
-                         }];
+        blockSelf.isFetching = NO;
+        if (success) {
+            blockSelf.hintLabel.text = @"今日知乎已送到,轻触屏幕查看";
+            [UIView animateWithDuration:2.0f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
+                             animations:^{
+                                 self.hintLabel.alpha = 0.3f;
+                             }
+                             completion:^(BOOL finished) {
+                                 
+                             }];
+        }
+        else {
+            blockSelf.hintLabel.text = @"跑腿的路上遇到点问题，轻触屏幕重新来过";
+        }
     }];
 }
 
